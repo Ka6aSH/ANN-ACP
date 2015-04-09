@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="VA-FILE">
+      <UniqueIdentifier>{06d59f02-05ae-4ce0-9439-bf845c24f4ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BBF">
+      <UniqueIdentifier>{beaa9bc2-db03-45fa-81fb-ec642c4dea46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LSH">
+      <UniqueIdentifier>{b930ce6a-ed95-4a06-97cc-317e71672c06}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Functions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="va_file.cpp">
+      <Filter>VA-FILE</Filter>
+    </ClCompile>
+    <ClCompile Include="BBF.cpp">
+      <Filter>BBF</Filter>
+    </ClCompile>
+    <ClCompile Include="Bucket.cpp">
+      <Filter>LSH</Filter>
+    </ClCompile>
+    <ClCompile Include="HashFunction.cpp">
+      <Filter>LSH</Filter>
+    </ClCompile>
+    <ClCompile Include="MyPoint.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Node.cpp">
+      <Filter>BBF</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="MyPoint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="va_file.h">
+      <Filter>VA-FILE</Filter>
+    </ClInclude>
+    <ClInclude Include="BBF.h">
+      <Filter>BBF</Filter>
+    </ClInclude>
+    <ClInclude Include="Bucket.h">
+      <Filter>LSH</Filter>
+    </ClInclude>
+    <ClInclude Include="HashFunction.h">
+      <Filter>LSH</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>BBF</Filter>
+    </ClInclude>
+    <ClInclude Include="Functions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
