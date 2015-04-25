@@ -7,7 +7,7 @@ BBF::BBF(std::vector<MyPoint*>* points) : points(points), root(new Node(points))
 Node* BBF::find_leaf(MyPoint* q) 
 {
 	Node* temp = root;
-	Node* actual;
+	Node* actual = nullptr;
     while (temp != nullptr) {
         actual = temp;
         if (q->vector[temp->m] < temp->median)

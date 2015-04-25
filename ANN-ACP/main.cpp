@@ -7,28 +7,28 @@
 
 void main() 
 {
-	//double points[20][2] =
-	//{	{ -2 , 9 },
-	//	{ -3 , -6 },
-	//	{ -2 , 4 },
-	//	{ -9 , 10 },
-	//	{ -1 , 0 },
-	//	{ 5 , -6 },
-	//	{ 7 , -9 },
-	//	{ -9 , 9 },
-	//	{ 5 , -3 },
-	//	{ 4 , 2 },
-	//	{ 7 , 9 },
-	//	{ -2 , 3 },
-	//	{ -2 , 7 },
-	//	{ -8 , -10 },
-	//	{ 5 , -2 },
-	//	{ 1 , 3 },
-	//	{ 10 , -6 },
-	//	{ -9 , -5 },
-	//	{ 2 , 6 },
-	//	{ -7 , 9 }};
-	double points[100][2] = {
+	double points[20][2] =
+	{	{ -2 , 9 },
+		{ -3 , -6 },
+		{ -2 , 4 },
+		{ -9 , 10 },
+		{ -1 , 0 },
+		{ 5 , -6 },
+		{ 7 , -9 },
+		{ -9 , 9 },
+		{ 5 , -3 },
+		{ 4 , 2 },
+		{ 7 , 9 },
+		{ -2 , 3 },
+		{ -2 , 7 },
+		{ -8 , -10 },
+		{ 5 , -2 },
+		{ 1 , 3 },
+		{ 10 , -6 },
+		{ -9 , -5 },
+		{ 2 , 6 },
+		{ -7 , 9 }};
+	/*double points[100][2] = {
 		{ 9, -6 },
 		{ 1, 9 },
 		{ -7, -1 },
@@ -129,7 +129,7 @@ void main()
 		{ -9, -2 },
 		{ -7, -8 },
 		{ -8, -7 },
-	};
+	};*/
 	//double points[10][2] = {
 	//	{6.29447, -7.29046},
 	//	{8.11584, 6.70017},
@@ -146,7 +146,7 @@ void main()
 	std::vector<MyPoint*> points_list;
 	std::vector<double> coords;
 	MyPoint* p;
-	for (int i = 0; i < 100; ++i) {
+	for (int i = 0; i < 20; ++i) {
 		coords.assign(points[i], points[i] + 2);
 		p = new MyPoint(d, points[i]);
 		points_list.push_back(p);
@@ -157,7 +157,7 @@ void main()
 	p = new MyPoint(d, query);
 	//BBF bbf(&points_list);
 	//bbf.ANN(p);
-	va_file vaf(&points_list, "smth");
+	va_file vaf(&points_list, "smth", 2);
 	vaf.ANN(p);
 }
 

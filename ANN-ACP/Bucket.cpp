@@ -3,12 +3,16 @@
 
 Bucket::Bucket(int k, int d)
 {
-
+	while (k-- > 0)
+		functions.push_back(new HashFunction(d));
 }
 
 int Bucket::getHash(MyPoint* p)
 {
-
+	int hash = 1;
+	for (int i = 0; i < functions.size(); ++i)
+		hash = 32 * hash + functions.at(i)->getHash(p);
+	return hash;
 }
 
 void Bucket::addPoint(MyPoint* p)
@@ -27,4 +31,5 @@ std::vector<MyPoint*> Bucket::getPoints(MyPoint* q)
 
 Bucket::~Bucket()
 {
+	
 }

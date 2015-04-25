@@ -1,13 +1,12 @@
 #include "va_file.h"
 
 
-va_file::va_file(std::vector<MyPoint*>* points, std::string file_name):
-	points(points), file_name(file_name)
+va_file::va_file(std::vector<MyPoint*>* points, std::string file_name, int eps):
+points(points), file_name(file_name), eps(eps)
 {
 	if (points->size() == 0)
 		return;
 	this->d = points->at(0)->dimension;
-	eps = 2;
 
 	init_grid();
 	get_bounds();
@@ -56,7 +55,7 @@ void va_file::get_bounds()
 			max_count = count;
 		while (count > 0)
 		{
-			count >>= 1;
+			count /= 10;
 			bits ++;
 		}
 		if (bits > max_bit)
@@ -78,7 +77,6 @@ void va_file::get_bounds()
 
 void va_file::write_points(std::ofstream* file)
 {
-	int deep = std::log2(size);
 	MyPoint* temp;
 	for (int l = 0; l < points->size(); ++l)
 	{
@@ -95,16 +93,16 @@ void va_file::write_points(std::ofstream* file)
 				else
 					i = j + i / 2 - j / 2;
 			}
-			*file << i;
+			*file << format_block(i);
 		}
 		*file << '\n';
 	}
 }
 
-int va_file::ANN(MyPoint* q)
+MyPoint* va_file::ANN(MyPoint* q)
 {
-	char* buf = new char[d + 1];
-	buf[d] = '\0';
+	std::stringstream code;
+
 	for (int k = 0; k < d; ++k)
 	{
 		int i = 0;
@@ -116,24 +114,42 @@ int va_file::ANN(MyPoint* q)
 			else
 				i = j + i / 2 - j / 2;
 		}
-		buf[k] = i + '0';
+		code << format_block(i);
 	}
 	std::ifstream file;
 	file.open(file_name);
+	const std::string tmp = code.str();
+	const char* buf = tmp.c_str();
 	std::string code_read;
 	int index;
+	MyPoint* res = nullptr;
+	double dist = std::numeric_limits<double>().max();
 	while (file >> index >> code_read)
 	{
-		if (!std::strcmp(buf, code_read.c_str()))
-			std::cout << index << '\n';
+		if (!std::strcmp(buf, code_read.c_str()) &&
+			(l2_distance(q, points->at(index))) < dist)
+		{
+			dist = l2_distance(q, points->at(index));
+			res = points->at(index);
+		}
 	}
-	return 0;
+	return res;
 }
 
+std::string va_file::format_block(int i)
+{
+	std::string res = std::to_string(i);
+	if (res.length() < b)
+	{
+		return std::string(b - res.length(), '0') + res;
+	}
+	return res;
+}
 
 va_file::~va_file(void)
 {
-	for (int i = 0; i < d; ++i) {
+	for (int i = 0; i < d; ++i) 
+	{
 		delete[] grid[i];
 	}
 	delete[] grid;
