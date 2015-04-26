@@ -38,16 +38,24 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <EnablePREfast>false</EnablePREfast>
+      <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -68,6 +76,7 @@
     <ClCompile Include="Bucket.cpp" />
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="HashFunction.cpp" />
+    <ClCompile Include="LSH.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MyPoint.cpp" />
     <ClCompile Include="Node.cpp" />
@@ -78,6 +87,7 @@
     <ClInclude Include="Bucket.h" />
     <ClInclude Include="Functions.h" />
     <ClInclude Include="HashFunction.h" />
+    <ClInclude Include="LSH.h" />
     <ClInclude Include="MyPoint.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="va_file.h" />

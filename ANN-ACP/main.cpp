@@ -1,5 +1,6 @@
 #include "BBF.h"
 #include "va_file.h"
+#include "LSH.h"
 #include <random>
 #include <time.h>
 #include <iostream>
@@ -142,6 +143,7 @@ void main()
 	//	{9.15014, 9.92923},
 	//	{9.29777, 9.3539}
 	//};
+
 	int d = 2;
 	std::vector<MyPoint*> points_list;
 	std::vector<double> coords;
@@ -157,8 +159,10 @@ void main()
 	p = new MyPoint(d, query);
 	//BBF bbf(&points_list);
 	//bbf.ANN(p);
-	va_file vaf(&points_list, "smth", 2);
-	vaf.ANN(p);
+	//va_file vaf(&points_list, "smth", 2);
+	//vaf.ANN(p);
+	LSH lsh(&points_list, 2);
+	lsh.ANN(p);
 }
 
 MyPoint* linear_method(std::vector<MyPoint*>* points, const MyPoint* q)

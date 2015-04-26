@@ -48,6 +48,9 @@
     <ClCompile Include="Node.cpp">
       <Filter>BBF</Filter>
     </ClCompile>
+    <ClCompile Include="LSH.cpp">
+      <Filter>LSH</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyPoint.h">
@@ -70,6 +73,9 @@
     </ClInclude>
     <ClInclude Include="Functions.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LSH.h">
+      <Filter>LSH</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
