@@ -3,4 +3,9 @@
 
 double l2_distance(const MyPoint* p1, const MyPoint* p2);
 
-std::string bits(int n);
+double sphere_distance(const MyPoint* p1, const MyPoint* p2);
+
+MyPoint* linear_method(std::vector<MyPoint*>* points, const MyPoint* q);
+
+std::vector<MyPoint*>* linear_method_eps(std::vector<MyPoint*>* points, const MyPoint* q, double eps);
+

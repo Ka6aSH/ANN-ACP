@@ -1,6 +1,7 @@
 #include "BBF.h"
 
-BBF::BBF(std::vector<MyPoint*>* points) : points(points), root(new Node(points))
+BBF::BBF(std::vector<MyPoint*>* points, double eps) 
+	: points(points), root(new Node(points)), node_count(points->size() / 2), eps(eps)
 {
 }
 
@@ -116,6 +117,47 @@ MyPoint* BBF::ANN(MyPoint* q)
 					result = t.next->points[i];
 				}
 			}
+		}
+	}
+	return result;
+}
+
+std::vector<MyPoint*>* BBF::ENN(MyPoint* q)
+{
+	Node *node_q = find_leaf(q);
+	//int remain_views = node_count - node_q->points.size();
+	std::vector<MyPoint*>* result = new std::vector<MyPoint*>();
+	for (auto point = node_q->points.begin();
+		point != node_q->points.end();
+		++point)
+		if (l2_distance(q, *point) < eps)
+			result->push_back(*point);
+
+	push_if_better(node_q->parent, node_q, node_q, q, eps);
+	while (pq.size() != 0)
+	{
+		Triple t = pq.top();
+		pq.pop();
+		if (t.dist >= eps) {
+			return result;
+		}
+		if (t.next->leftNode != nullptr) {
+			if (t.next->leftNode != t.prev) {
+				push_if_better(t.next->leftNode, t.next, node_q, q, eps);
+			}
+			if (t.next->rightNode != t.prev) {
+				push_if_better(t.next->rightNode, t.next, node_q, q, eps);
+			}
+			if (t.next->parent != nullptr && t.next->parent != t.prev) {
+				push_if_better(t.next->parent, t.next, node_q, q, eps);
+			}
+		}
+		else {
+			for (auto point = t.next->points.begin();
+				point != t.next->points.end();
+				++point)
+				if (l2_distance(q, *point) < eps)
+					result->push_back(*point);
 		}
 	}
 	return result;

@@ -8,7 +8,7 @@ public:
 	double* vector;
 	
 	MyPoint(int, double* vector);
-	double dot(const MyPoint*);
+	double dot(const MyPoint*) const;
 	~MyPoint(void);
 };
 

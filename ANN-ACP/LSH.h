@@ -9,6 +9,7 @@ class LSH
 public:
 	LSH(std::vector<MyPoint*>* points, double eps);
 	MyPoint* ANN(MyPoint* q);
+	std::vector<MyPoint*>* ENN(MyPoint* q);
 	~LSH();
 
 private:

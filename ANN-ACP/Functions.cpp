@@ -8,13 +8,31 @@ double l2_distance(const MyPoint* p1, const MyPoint* p2)
 	return sqrt(sum);
 }
 
-std::string bits(int n)
+double sphere_distance(const MyPoint* p1, const MyPoint* p2)
 {
-	std::ostringstream tmp;
-	while (n) 
-	{ 
-		tmp << (n & 1) ? "1" : "0";  
-		n >>= 1; 
-	}
-	return tmp.str();
+	return std::acos(p1->dot(p1) + p2->dot(p2));
+}
+
+MyPoint* linear_method(std::vector<MyPoint*>* points, const MyPoint* q)
+{
+	MyPoint* result = points->at(0);
+	double distance = l2_distance(result, q);
+	double tempDistance;
+
+	for (int i = 1; i < points->size(); ++i)
+		if ((tempDistance = l2_distance(q, points->at(i))) < distance) {
+			distance = tempDistance;
+			result = points->at(i);
+		}
+	return result;
+}
+
+std::vector<MyPoint*>* linear_method_eps(std::vector<MyPoint*>* points, const MyPoint* q, double eps)
+{
+	std::vector<MyPoint*>* result = new std::vector<MyPoint*>();
+
+	for (int i = 1; i < points->size(); ++i)
+		if (l2_distance(q, points->at(i)) < eps)
+			result->push_back(points->at(i));
+	return result;
 }

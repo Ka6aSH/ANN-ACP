@@ -33,6 +33,18 @@ MyPoint* LSH::ANN(MyPoint* q)
 	return res;
 }
 
+std::vector<MyPoint*>* LSH::ENN(MyPoint* q)
+{
+	std::vector<MyPoint*>* result = new std::vector<MyPoint*>();
+	std::vector<MyPoint*>* temp_points;
+	for (auto bucket = buckets.begin(); bucket != buckets.end(); ++bucket)
+		if ((temp_points = (*bucket)->getPoints(q)) != nullptr)
+			for (auto point = temp_points->begin(); point != temp_points->end(); ++point)
+				if (l2_distance(q, *point) < eps)
+					result->push_back(*point);
+	return result;
+}
+
 static bool deleteBuckets(Bucket* bucket)
 {
 	delete bucket;

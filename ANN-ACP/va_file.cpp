@@ -137,6 +137,38 @@ MyPoint* va_file::ANN(MyPoint* q)
 	return res;
 }
 
+std::vector<MyPoint*>* va_file::ENN(MyPoint* q)
+{
+	std::stringstream code;
+
+	for (int k = 0; k < d; ++k)
+	{
+		int i = 0;
+		int j = size - 1;
+		while (j - i != 1)
+		{
+			if (q->vector[k] < grid[k][j + i / 2 - j / 2])
+				j = j + i / 2 - j / 2;
+			else
+				i = j + i / 2 - j / 2;
+		}
+		code << format_block(i);
+	}
+	std::ifstream file;
+	file.open(file_name);
+	const std::string tmp = code.str();
+	const char* buf = tmp.c_str();
+	std::string code_read;
+	int index;
+	std::vector<MyPoint*>* result = new std::vector<MyPoint*>();
+	while (file >> index >> code_read)
+	{
+		if (!std::strcmp(buf, code_read.c_str()) &&	(l2_distance(q, points->at(index))) < eps)
+			result->push_back(points->at(index));
+	}
+	return result;
+}
+
 std::string va_file::format_block(int i)
 {
 	std::string res = std::to_string(i);

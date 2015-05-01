@@ -24,8 +24,10 @@ public:
 	std::vector<MyPoint*>* points;
 	Node* root;
 	std::priority_queue<Triple, std::vector<Triple>, CompareTriple> pq;
+	int node_count;
+	double eps;
 
-	BBF(std::vector<MyPoint*>* points);
+	BBF(std::vector<MyPoint*>* points, double eps);
 	Node* find_leaf(MyPoint* q);
 	Node* lca(Node* node1, Node* node2);
 	void push_if_better(
@@ -35,6 +37,7 @@ public:
 		MyPoint* q, 
 		double dist);
 	MyPoint* ANN(MyPoint* q);
+	std::vector<MyPoint*>* ENN(MyPoint* q);
 	~BBF(void);
 };
 

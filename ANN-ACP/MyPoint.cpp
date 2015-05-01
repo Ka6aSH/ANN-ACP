@@ -3,7 +3,7 @@
 
 MyPoint::MyPoint(int d, double* arr) : dimension(d), vector(arr) {}
 
-double MyPoint::dot(const MyPoint* point)
+double MyPoint::dot(const MyPoint* point) const
 {
 	double res = 0;
 	for (int i = 0; i < dimension; ++i) {
