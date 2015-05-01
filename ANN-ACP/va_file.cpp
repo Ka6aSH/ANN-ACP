@@ -1,7 +1,7 @@
 #include "va_file.h"
 
 
-va_file::va_file(std::vector<MyPoint*>* points, std::string file_name, int eps):
+va_file::va_file(std::vector<MyPoint*>* points, std::string file_name, double eps):
 points(points), file_name(file_name), eps(eps)
 {
 	if (points->size() == 0)
@@ -64,10 +64,11 @@ void va_file::get_bounds()
 	b = max_bit;
 	size = max_count + 1;
 	// set lower bound
+	double shift = ((double)rand() / (RAND_MAX)) * eps;
 	for (int i = 0; i < d; ++ i)
 	{
 		grid[i] = new double[size];
-		grid[i][0] = lower_bound[i] - eps;
+		grid[i][0] = lower_bound[i] - shift;
 		for (int j = 1; j < size; ++j)
 			grid[i][j] = grid[i][j - 1] + 2 * eps;
 	}

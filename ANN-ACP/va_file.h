@@ -7,7 +7,7 @@
 class va_file
 {
 public:
-	va_file(std::vector<MyPoint*>* points, std::string file_name, int eps);
+	va_file(std::vector<MyPoint*>* points, std::string file_name, double eps);
 	MyPoint* ANN(MyPoint* q);
 	~va_file(void);
 
