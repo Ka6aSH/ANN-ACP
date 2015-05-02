@@ -4,7 +4,7 @@
 HashFunction::HashFunction(int d)
 {
 	double* temp = new double[d];
-	std::default_random_engine generator;
+	std::default_random_engine generator(rand());
 	std::normal_distribution<double> distribution_norm(0, 1);
 	std::uniform_real_distribution<double> distribution_uni(0.0, 1.0);
 

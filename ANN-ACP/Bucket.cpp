@@ -10,7 +10,7 @@ Bucket::Bucket(int k, int d)
 int Bucket::getHash(MyPoint* p)
 {
 	int hash = 1;
-	for (int i = 0; i < functions.size(); ++i)
+	for (size_t i = 0; i < functions.size(); ++i)
 		hash = 32 * hash + functions.at(i)->getHash(p);
 	return hash;
 }

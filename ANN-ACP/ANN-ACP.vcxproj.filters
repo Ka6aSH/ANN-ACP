@@ -55,5 +55,6 @@
     </ClInclude>
     <ClInclude Include="Functions.h" />
     <ClInclude Include="MyPoint.h" />
+    <ClInclude Include="IAlgorithm.h" />
   </ItemGroup>
 </Project>

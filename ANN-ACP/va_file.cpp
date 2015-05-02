@@ -33,7 +33,7 @@ void va_file::get_bounds()
 		lower_bound[i] = temp->vector[i];
 	}
 	// go through
-	for (int i = 1; i < points->size(); ++ i)
+	for (size_t i = 1; i < points->size(); ++ i)
 	{
 		temp = points->at(i);
 		for (int j = 0; j < d; ++ j)
@@ -45,32 +45,35 @@ void va_file::get_bounds()
 		}
 	}
 	// get bits
-	int max_bit = 0;
-	int max_count = 0;
-	for (int i = 0; i < d; ++ i)
-	{
-		int count = (int)((higher_bound[i] - lower_bound[i]) / (2 * eps)) + 1;
-		int bits = 0;
-		if (count > max_count)
-			max_count = count;
-		while (count > 0)
-		{
-			count /= 10;
-			bits ++;
-		}
-		if (bits > max_bit)
-			max_bit = bits;
-	}
-	b = max_bit;
-	size = max_count + 1;
+	//int max_bit = 0;
+	//int max_count = 0;
+	//for (int i = 0; i < d; ++ i)
+	//{
+	//	int count = (int)((higher_bound[i] - lower_bound[i]) / (2 * eps)) + 1;
+	//	int bits = 0;
+	//	if (count > max_count)
+	//		max_count = count;
+	//	while (count > 0)
+	//	{
+	//		count /= 10;
+	//		bits ++;
+	//	}
+	//	if (bits > max_bit)
+	//		max_bit = bits;
+	//}
+	//b = max_bit;
+	b = 1;
+	//size = max_count + 1;
+	size = 10;
 	// set lower bound
-	double shift = ((double)rand() / (RAND_MAX)) * eps;
+	double eps_2 = 0.1;
+	double shift = ((double)rand() / (RAND_MAX)) * eps_2;
 	for (int i = 0; i < d; ++ i)
 	{
 		grid[i] = new double[size];
 		grid[i][0] = lower_bound[i] - shift;
 		for (int j = 1; j < size; ++j)
-			grid[i][j] = grid[i][j - 1] + 2 * eps;
+			grid[i][j] = grid[i][j - 1] + 2 * eps_2;
 	}
 	delete[] lower_bound;
 	delete[] higher_bound;
@@ -79,7 +82,7 @@ void va_file::get_bounds()
 void va_file::write_points(std::ofstream* file)
 {
 	MyPoint* temp;
-	for (int l = 0; l < points->size(); ++l)
+	for (size_t l = 0; l < points->size(); ++l)
 	{
 		temp = points->at(l);
 		*file << l << '\t';
@@ -172,7 +175,7 @@ std::vector<MyPoint*>* va_file::ENN(MyPoint* q)
 std::string va_file::format_block(int i)
 {
 	std::string res = std::to_string(i);
-	if (res.length() < b)
+	if (res.length() < (size_t)b)
 	{
 		return std::string(b - res.length(), '0') + res;
 	}

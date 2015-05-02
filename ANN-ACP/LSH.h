@@ -2,14 +2,15 @@
 #include "Bucket.h"
 #include "MyPoint.h"
 #include "Functions.h"
+#include "IAlgorithm.h"
 
 #pragma once
-class LSH
+class LSH : public IAlgorithm
 {
 public:
 	LSH(std::vector<MyPoint*>* points, double eps);
-	MyPoint* ANN(MyPoint* q);
-	std::vector<MyPoint*>* ENN(MyPoint* q);
+	virtual MyPoint* ANN(MyPoint* q);
+	virtual std::vector<MyPoint*>* ENN(MyPoint* q);
 	~LSH();
 
 private:

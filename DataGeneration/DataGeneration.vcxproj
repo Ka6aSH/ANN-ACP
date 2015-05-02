@@ -11,8 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{A8CBA422-125B-452A-BA24-B80727F1EBEE}</ProjectGuid>
-    <RootNamespace>ANNACP</RootNamespace>
+    <ProjectGuid>{6FFEDA36-2A07-4465-B7CB-1003ECC198CD}</ProjectGuid>
+    <RootNamespace>DataGeneration</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -38,24 +38,16 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <RunCodeAnalysis>false</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
+  <PropertyGroup />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <EnablePREfast>false</EnablePREfast>
-      <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
-    <Bscmake>
-      <PreserveSbr>true</PreserveSbr>
-    </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -72,26 +64,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BBF.cpp" />
-    <ClCompile Include="Bucket.cpp" />
-    <ClCompile Include="Functions.cpp" />
-    <ClCompile Include="HashFunction.cpp" />
-    <ClCompile Include="LSH.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="MyPoint.cpp" />
-    <ClCompile Include="Node.cpp" />
-    <ClCompile Include="va_file.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="BBF.h" />
-    <ClInclude Include="Bucket.h" />
-    <ClInclude Include="Functions.h" />
-    <ClInclude Include="HashFunction.h" />
-    <ClInclude Include="IAlgorithm.h" />
-    <ClInclude Include="LSH.h" />
-    <ClInclude Include="MyPoint.h" />
-    <ClInclude Include="Node.h" />
-    <ClInclude Include="va_file.h" />
+    <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

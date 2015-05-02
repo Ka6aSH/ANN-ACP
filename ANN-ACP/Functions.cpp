@@ -19,7 +19,7 @@ MyPoint* linear_method(std::vector<MyPoint*>* points, const MyPoint* q)
 	double distance = l2_distance(result, q);
 	double tempDistance;
 
-	for (int i = 1; i < points->size(); ++i)
+	for (size_t i = 1; i < points->size(); ++i)
 		if ((tempDistance = l2_distance(q, points->at(i))) < distance) {
 			distance = tempDistance;
 			result = points->at(i);
@@ -31,7 +31,7 @@ std::vector<MyPoint*>* linear_method_eps(std::vector<MyPoint*>* points, const My
 {
 	std::vector<MyPoint*>* result = new std::vector<MyPoint*>();
 
-	for (int i = 1; i < points->size(); ++i)
+	for (size_t i = 1; i < points->size(); ++i)
 		if (l2_distance(q, points->at(i)) < eps)
 			result->push_back(points->at(i));
 	return result;

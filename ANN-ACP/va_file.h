@@ -2,14 +2,15 @@
 #include <iostream>
 #include <fstream>
 #include "Functions.h"
+#include "IAlgorithm.h"
 
 #pragma once
-class va_file
+class va_file : public IAlgorithm
 {
 public:
 	va_file(std::vector<MyPoint*>* points, std::string file_name, double eps);
-	MyPoint* ANN(MyPoint* q);
-	std::vector<MyPoint*>* ENN(MyPoint* q);
+	virtual MyPoint* ANN(MyPoint* q);
+	virtual std::vector<MyPoint*>* ENN(MyPoint* q);
 	~va_file(void);
 
 private:

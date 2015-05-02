@@ -1,7 +1,7 @@
 #include "BBF.h"
 
 BBF::BBF(std::vector<MyPoint*>* points, double eps) 
-	: points(points), root(new Node(points)), node_count(points->size() / 2), eps(eps)
+	: points(points), root(new Node(points)), node_count(points->size() * 0.05), eps(eps)
 {
 }
 
@@ -71,11 +71,11 @@ void BBF::push_if_better(Node* next,
 MyPoint* BBF::ANN(MyPoint* q) 
 {
 	Node *node_q = find_leaf(q);
-	
+	int remain_views = node_count - node_q->points.size();
 	MyPoint* result = node_q->points[0];
 	double distance = l2_distance(result, q);
 	double tempDistance;
-	for (int i = 0; i < node_q->points.size(); ++i)
+	for (size_t i = 0; i < node_q->points.size(); ++i)
 	{
 		tempDistance = l2_distance(q, node_q->points[i]);
 		if (tempDistance < distance) 
@@ -90,7 +90,7 @@ MyPoint* BBF::ANN(MyPoint* q)
 	}
 
 	push_if_better(node_q->parent, node_q, node_q, q, distance);
-	while (pq.size() != 0) 
+	while (pq.size() != 0 && remain_views > 0)
 	{
 		Triple t = pq.top();
 		pq.pop();
@@ -108,7 +108,8 @@ MyPoint* BBF::ANN(MyPoint* q)
 				push_if_better(t.next->parent, t.next, node_q, q, distance);
 			}
 		} else {
-			for (int i = 0; i < t.next->points.size(); ++i)
+			remain_views -= t.next->points.size();
+			for (size_t i = 0; i < t.next->points.size(); ++i)
 			{
 				tempDistance = l2_distance(q, t.next->points[i]);
 				if (tempDistance < distance) 
@@ -125,7 +126,7 @@ MyPoint* BBF::ANN(MyPoint* q)
 std::vector<MyPoint*>* BBF::ENN(MyPoint* q)
 {
 	Node *node_q = find_leaf(q);
-	//int remain_views = node_count - node_q->points.size();
+	int remain_views = node_count - node_q->points.size();
 	std::vector<MyPoint*>* result = new std::vector<MyPoint*>();
 	for (auto point = node_q->points.begin();
 		point != node_q->points.end();
@@ -134,7 +135,7 @@ std::vector<MyPoint*>* BBF::ENN(MyPoint* q)
 			result->push_back(*point);
 
 	push_if_better(node_q->parent, node_q, node_q, q, eps);
-	while (pq.size() != 0)
+	while (pq.size() != 0 && remain_views > 0)
 	{
 		Triple t = pq.top();
 		pq.pop();
@@ -153,6 +154,7 @@ std::vector<MyPoint*>* BBF::ENN(MyPoint* q)
 			}
 		}
 		else {
+			remain_views -= t.next->points.size();
 			for (auto point = t.next->points.begin();
 				point != t.next->points.end();
 				++point)

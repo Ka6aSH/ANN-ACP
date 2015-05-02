@@ -1,6 +1,7 @@
 #include "Node.h"
 #include <queue>
 #include "Functions.h"
+#include "IAlgorithm.h"
 
 #pragma once
 struct Triple {
@@ -18,7 +19,7 @@ class CompareTriple {
     }
 };
 
-class BBF
+class BBF : public IAlgorithm
 {
 public:
 	std::vector<MyPoint*>* points;
@@ -36,8 +37,8 @@ public:
 		Node* node_q,
 		MyPoint* q, 
 		double dist);
-	MyPoint* ANN(MyPoint* q);
-	std::vector<MyPoint*>* ENN(MyPoint* q);
+	virtual MyPoint* ANN(MyPoint* q);
+	virtual std::vector<MyPoint*>* ENN(MyPoint* q);
 	~BBF(void);
 };
 
