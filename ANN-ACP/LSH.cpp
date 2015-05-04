@@ -1,12 +1,12 @@
 #include "LSH.h"
 
 
-LSH::LSH(std::vector<MyPoint*>* points, double eps):
-points(points), eps(eps)
+LSH::LSH(std::vector<MyPoint*>* points, double eps, double(*distance)(const MyPoint*, const MyPoint*)) :
+points(points), eps(eps), distance_func(distance)
 {
 	int d = points->at(0)->dimension;
 	int k = d;
-	int l = 1;
+	int l = std::round(std::pow(d, 0.25));
 	Bucket* b;
 	for (int i = 0; i < l; i++)
 	{
@@ -23,27 +23,27 @@ MyPoint* LSH::ANN(MyPoint* q)
 	double temp_dist = 0;
 	MyPoint* res = nullptr;
 	std::vector<MyPoint*>* temp_points;
-	for (size_t i = 0; i < buckets.size(); ++i)
-		if ((temp_points = buckets.at(i)->getPoints(q)) != nullptr)
-			for (size_t j = 0; j < temp_points->size(); ++j)
-				if ((temp_dist = l2_distance(q, temp_points->at(j))) < dist) {
-					res = temp_points->at(j);
+	for (auto bucket = buckets.begin(); bucket != buckets.end(); ++bucket)
+		if ((temp_points = (*bucket)->getPoints(q)) != nullptr)
+			for (auto point = temp_points->begin(); point != temp_points->end(); ++point)
+				if ((temp_dist = distance_func(q, *point)) < dist) {
+					res = *point;
 					dist = temp_dist;
 				}
 	return res;
 }
 
-std::vector<MyPoint*>* LSH::ENN(MyPoint* q)
-{
-	std::vector<MyPoint*>* result = new std::vector<MyPoint*>();
-	std::vector<MyPoint*>* temp_points;
-	for (auto bucket = buckets.begin(); bucket != buckets.end(); ++bucket)
-		if ((temp_points = (*bucket)->getPoints(q)) != nullptr)
-			for (auto point = temp_points->begin(); point != temp_points->end(); ++point)
-				if (l2_distance(q, *point) < eps)
-					result->push_back(*point);
-	return result;
-}
+//std::vector<MyPoint*>* LSH::ENN(MyPoint* q)
+//{
+//	std::vector<MyPoint*>* result = new std::vector<MyPoint*>();
+//	std::vector<MyPoint*>* temp_points;
+//	for (auto bucket = buckets.begin(); bucket != buckets.end(); ++bucket)
+//		if ((temp_points = (*bucket)->getPoints(q)) != nullptr)
+//			for (auto point = temp_points->begin(); point != temp_points->end(); ++point)
+//				if (distance_func(q, *point) < eps)
+//					result->push_back(*point);
+//	return result;
+//}
 
 static bool deleteBuckets(Bucket* bucket)
 {

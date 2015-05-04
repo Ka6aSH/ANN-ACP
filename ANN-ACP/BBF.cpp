@@ -1,9 +1,8 @@
 #include "BBF.h"
 
-BBF::BBF(std::vector<MyPoint*>* points, double eps) 
-	: points(points), root(new Node(points)), node_count(points->size() * 0.05), eps(eps)
-{
-}
+BBF::BBF(std::vector<MyPoint*>* points, double eps, double(*distance)(const MyPoint*, const MyPoint*))
+	: points(points), root(new Node(points)), node_count(points->size() / 2), eps(eps), distance_func(distance)
+{ }
 
 Node* BBF::find_leaf(MyPoint* q) 
 {
@@ -73,11 +72,11 @@ MyPoint* BBF::ANN(MyPoint* q)
 	Node *node_q = find_leaf(q);
 	int remain_views = node_count - node_q->points.size();
 	MyPoint* result = node_q->points[0];
-	double distance = l2_distance(result, q);
+	double distance = distance_func(result, q);
 	double tempDistance;
 	for (size_t i = 0; i < node_q->points.size(); ++i)
 	{
-		tempDistance = l2_distance(q, node_q->points[i]);
+		tempDistance = distance_func(q, node_q->points[i]);
 		if (tempDistance < distance) 
 		{
 			distance = tempDistance;
@@ -111,7 +110,7 @@ MyPoint* BBF::ANN(MyPoint* q)
 			remain_views -= t.next->points.size();
 			for (size_t i = 0; i < t.next->points.size(); ++i)
 			{
-				tempDistance = l2_distance(q, t.next->points[i]);
+				tempDistance = distance_func(q, t.next->points[i]);
 				if (tempDistance < distance) 
 				{
 					distance = tempDistance;
@@ -131,7 +130,7 @@ std::vector<MyPoint*>* BBF::ENN(MyPoint* q)
 	for (auto point = node_q->points.begin();
 		point != node_q->points.end();
 		++point)
-		if (l2_distance(q, *point) < eps)
+		if (distance_func(q, *point) < eps)
 			result->push_back(*point);
 
 	push_if_better(node_q->parent, node_q, node_q, q, eps);
@@ -158,7 +157,7 @@ std::vector<MyPoint*>* BBF::ENN(MyPoint* q)
 			for (auto point = t.next->points.begin();
 				point != t.next->points.end();
 				++point)
-				if (l2_distance(q, *point) < eps)
+				if (distance_func(q, *point) < eps)
 					result->push_back(*point);
 		}
 	}

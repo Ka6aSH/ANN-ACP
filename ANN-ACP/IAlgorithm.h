@@ -6,7 +6,7 @@ class IAlgorithm
 {
 public:
 	virtual MyPoint* ANN(MyPoint*) = 0;
-	virtual std::vector<MyPoint*>* ENN(MyPoint*) = 0;
+	//virtual std::vector<MyPoint*>* ENN(MyPoint*) = 0;
 };
 
 #endif

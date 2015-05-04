@@ -1,7 +1,6 @@
 #include "Node.h"
-#include <queue>
-#include "Functions.h"
 #include "IAlgorithm.h"
+#include <queue>
 
 #pragma once
 struct Triple {
@@ -27,8 +26,9 @@ public:
 	std::priority_queue<Triple, std::vector<Triple>, CompareTriple> pq;
 	int node_count;
 	double eps;
+	double (*distance_func)(const MyPoint*, const MyPoint*);
 
-	BBF(std::vector<MyPoint*>* points, double eps);
+	BBF(std::vector<MyPoint*>* points, double eps, double(*distance)(const MyPoint*, const MyPoint*));
 	Node* find_leaf(MyPoint* q);
 	Node* lca(Node* node1, Node* node2);
 	void push_if_better(

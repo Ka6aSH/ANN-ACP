@@ -10,29 +10,32 @@ double l2_distance(const MyPoint* p1, const MyPoint* p2)
 
 double sphere_distance(const MyPoint* p1, const MyPoint* p2)
 {
-	return std::acos(p1->dot(p1) + p2->dot(p2));
+	double res = p1->dot(p2);
+	res = res < -1 ? -0.99999 : res;
+	res = res > 1 ? 0.99999 : res;
+	return std::acos(res);
 }
 
-MyPoint* linear_method(std::vector<MyPoint*>* points, const MyPoint* q)
+MyPoint* linear_method(std::vector<MyPoint*>* points, const MyPoint* q, double(*distance_func)(const MyPoint*, const MyPoint*))
 {
 	MyPoint* result = points->at(0);
-	double distance = l2_distance(result, q);
+	double distance = distance_func(result, q);
 	double tempDistance;
 
 	for (size_t i = 1; i < points->size(); ++i)
-		if ((tempDistance = l2_distance(q, points->at(i))) < distance) {
+		if ((tempDistance = distance_func(q, points->at(i))) < distance) {
 			distance = tempDistance;
 			result = points->at(i);
 		}
 	return result;
 }
 
-std::vector<MyPoint*>* linear_method_eps(std::vector<MyPoint*>* points, const MyPoint* q, double eps)
-{
-	std::vector<MyPoint*>* result = new std::vector<MyPoint*>();
-
-	for (size_t i = 1; i < points->size(); ++i)
-		if (l2_distance(q, points->at(i)) < eps)
-			result->push_back(points->at(i));
-	return result;
-}
+//std::vector<MyPoint*>* linear_method_eps(std::vector<MyPoint*>* points, const MyPoint* q, double eps)
+//{
+//	std::vector<MyPoint*>* result = new std::vector<MyPoint*>();
+//
+//	for (size_t i = 1; i < points->size(); ++i)
+//		if (l2_distance(q, points->at(i)) < eps)
+//			result->push_back(points->at(i));
+//	return result;
+//}
